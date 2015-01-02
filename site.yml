@@ -1,0 +1,13 @@
+---
+- name: common configuration for all nodes
+  hosts: all
+  remote_user: root
+  roles:
+    - common
+
+- name: configure and deploy flapjack servers
+  hosts: flapjack
+  remote_user: root
+  roles:
+    - flapjack
+

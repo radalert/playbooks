@@ -1,0 +1,56 @@
+---
+- name: setup apt sources
+  synchronize: src=apt/sources.list dest=/etc/apt/sources.list
+  register: apt
+
+- name: update apt caches
+  apt: update_cache=yes
+  when: apt.changed
+
+- name: setup auxesis user
+  user: name=auxesis
+  args:
+    password: "$6$rounds=100000$KAZuQKhqTSha6jq6$3t.qMzr1PtmXfKua5T0r173i3SHDsFZnLEuLQfTO2DXGtrLPBrST1RpQuIEJL71Y4kYJVuS4UiI.Vvwi3CBk91"
+    comment: Lindsay Holmwood
+    uid: 1000
+    group: sudo
+    shell: /bin/bash
+
+- name: setup michaelneale user
+  user: name=michaelneale
+  args:
+    password: "$6$rounds=100000$ngul/DwN.nlqGqh8$qc8Z5G4CqZQzdrkSRg9ory9wd7AHp.LEfXMdcPJAXuMtxewpO5nqzSSYuXqPoKz/wOvqbnoEmrFjhA8tfGtZd0"
+    comment: Michael Neale
+    uid: 1001
+    group: sudo
+    shell: /bin/bash
+
+- name: setup auxesis ssh key
+  authorized_key: user=auxesis
+                  key="{{ item }}"
+  with_file:
+    - public_keys/auxesis
+
+- name: setup michaeleneale ssh key
+  authorized_key: user=michaelneale
+                  key="{{ item }}"
+  with_file:
+    - public_keys/michaelneale
+
+- name: add basic packages for housekeeping
+  apt: name={{ item }}
+  with_items:
+   - man-db
+   - file
+   - mtr
+   - traceroute
+   - lsof
+   - rsync
+   - telnet
+   - nmap
+   - screen
+   - vim
+
+- name: setup screenrc
+  synchronize: src=screenrc dest=/etc/screenrc
+

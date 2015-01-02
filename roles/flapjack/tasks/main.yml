@@ -1,0 +1,15 @@
+- name: setup apt key
+  apt_key: keyserver=keyserver.ubuntu.com id=8406B0E3803709B6
+  register: flapjack_apt
+
+- name: setup apt repo
+  #apt_repository: repo='deb http://packages.flapjack.io/deb wheezy main' state=present
+  apt_repository: repo='deb http://packages.flapjack.io/deb/v1 wheezy main' state=present
+  register: flapjack_apt
+
+- name: update apt caches
+  apt: update_cache=yes
+  when: flapjack_apt.changed
+
+- name: install flapjack
+  apt: name=flapjack

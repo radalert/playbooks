@@ -1,0 +1,11 @@
+# base wheezy
+deb http://mirrors.linode.com/debian/ wheezy main non-free
+deb-src http://mirrors.linode.com/debian/ wheezy main
+
+# wheezy-updates
+deb http://mirrors.linode.com/debian/ wheezy-updates main non-free
+deb-src http://mirrors.linode.com/debian/ wheezy-updates main
+
+# security updates
+deb http://security.debian.org/ wheezy/updates main non-free
+deb-src http://security.debian.org/ wheezy/updates main
