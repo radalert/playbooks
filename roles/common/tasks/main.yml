@@ -50,6 +50,10 @@
    - nmap
    - screen
    - vim
+   - python-pip
+
+- name: install boto
+  pip: name=boto
 
 - name: setup screenrc
   synchronize: src=screenrc dest=/etc/screenrc
