@@ -5,9 +5,14 @@
   roles:
     - common
 
-- name: configure and deploy flapjack servers
+- name: deploy flapjack servers
   hosts: flapjack
   remote_user: root
   roles:
     - flapjack
 
+- name: deploy pingbot
+  hosts: flapjack
+  remote_user: root
+  roles:
+    - pingbot

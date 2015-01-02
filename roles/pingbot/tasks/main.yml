@@ -1,0 +1,16 @@
+- name: install pip
+  apt: name=python-pip
+
+- name: install boto
+  pip: name=boto
+
+- name: download latest pingbot release
+  s3: bucket=radalert-releases
+      object=/pinger.zip
+      dest=/var/cache/pinger.zip
+      mode=get
+      aws_access_key=***REMOVED***
+      aws_secret_key=***REMOVED***
+
+- name: unarchive latest pingbot release
+  unarchive: src=/var/cache/pinger.zip dest=/usr/local/bin mode=755 copy=no
