@@ -32,3 +32,6 @@
 - name: restart pinger if changed
   runit: name=pinger state=restarted
   when: pinger
+
+- name: periodically reload pinger
+  cron: name="reload pinger" job="sv restart pinger"
