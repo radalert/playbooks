@@ -51,6 +51,8 @@
    - screen
    - vim
    - python-pip
+   - strace
+   - runit
 
 - name: install boto
   pip: name=boto
