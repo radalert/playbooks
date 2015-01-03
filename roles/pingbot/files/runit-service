@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Get latest configuration
+cd /var/tmp
+curl -H 'Authorization: token r4d4l3rt' http://radalert.io/v1/checks/http -o checks.json
+
+# Run the pinger
+export HEART_URL=http://requestb.in/15ejt921
+/usr/local/bin/pinger

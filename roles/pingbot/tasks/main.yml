@@ -14,3 +14,19 @@
 
 - name: unarchive latest pingbot release
   unarchive: src=/var/cache/pinger.zip dest=/usr/local/bin mode=755 copy=no
+
+- name: pinger service scaffold
+  file: path={{ item }} state=directory
+  with_items:
+    - /etc/service/pinger
+    - /etc/service/pinger/log
+    - /var/log/pinger
+
+- name: pinger service definition
+  synchronize: src={{ item.src }} dest=/etc/service/pinger/{{ item.dest }}
+  with_items:
+    - { src: 'runit-service', dest: 'run' }
+    - { src: 'runit-log', dest: 'log/run' }
+
+- name: run pinger
+  runit: name=pinger state=started

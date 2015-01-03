@@ -1,0 +1,3 @@
+#!/bin/bash
+
+/sbin/svlogd -tt /var/log/pingbot
