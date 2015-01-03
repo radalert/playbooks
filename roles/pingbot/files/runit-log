@@ -1,3 +1,3 @@
 #!/bin/bash
 
-/sbin/svlogd -tt /var/log/pingbot
+exec svlogd -tt /var/log/pinger

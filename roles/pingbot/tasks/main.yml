@@ -18,15 +18,23 @@
 - name: pinger service scaffold
   file: path={{ item }} state=directory
   with_items:
-    - /etc/service/pinger
-    - /etc/service/pinger/log
+    - /etc/sv/pinger
+    - /etc/sv/pinger/log
     - /var/log/pinger
 
 - name: pinger service definition
-  synchronize: src={{ item.src }} dest=/etc/service/pinger/{{ item.dest }}
+  synchronize: src={{ item.src }} dest=/etc/sv/pinger/{{ item.dest }}
   with_items:
     - { src: 'runit-service', dest: 'run' }
     - { src: 'runit-log', dest: 'log/run' }
+  register: pinger
+
+- name: enable pinger service
+  file: src=/etc/sv/pinger dest=/etc/service/pinger state=link
 
 - name: run pinger
   runit: name=pinger state=started
+
+- name: restart pinger if changed
+  runit: name=pinger state=restarted
+  when: pinger
