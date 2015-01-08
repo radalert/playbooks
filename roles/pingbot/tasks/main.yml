@@ -7,7 +7,7 @@
       aws_secret_key=***REMOVED***
 
 - name: unarchive latest pingbot release
-  unarchive: src=/var/cache/pinger.zip dest=/usr/local/bin mode=755 copy=no
+  unarchive: src=/var/cache/pinger.tar.gz dest=/usr/local/bin mode=755 copy=no
 
 - name: pinger service scaffold
   file: path={{ item }} state=directory
